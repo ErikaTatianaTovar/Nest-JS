@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './users.entity';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -7,10 +15,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-@Post()
-async create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto)
-}
+  @Post()
+  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+    return this.usersService.create(createUserDto);
+  }
 
   @Get()
   async findAll(): Promise<User[]> {
@@ -19,5 +27,18 @@ async create(@Body() createUserDto: CreateUserDto): Promise<User> {
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: CreateUserDto,
+  ): Promise<User> {
+    return this.usersService.update(id, updateUserDto);
+  }
+
+  @Delete(':id')
+  async delete(@Param('id') id: string): Promise<boolean> {
+    return this.usersService.delete(id);
   }
 }
