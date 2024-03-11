@@ -11,7 +11,7 @@ export class AuthService {
     try {
       const user = await this.userService.findByEmail(email);
       if (user && bcrypt.compareSync(password, user.password)) {
-        return user//{"success": "Bienvenido"};
+        return user; //{"success": "Bienvenido"};
       } else {
         throw new HttpException('Forbbiden', HttpStatus.FORBIDDEN);
       }
