@@ -50,10 +50,9 @@ export class UsersService {
   }
 
   async delete(id: string): Promise<boolean> {
-    
     try {
       const user = await this.userModel.findByIdAndDelete(id);
-      if(!user){
+      if (!user) {
         throw new HttpException('Not found', HttpStatus.NOT_FOUND);
       }
 
@@ -64,5 +63,9 @@ export class UsersService {
         HttpStatus.NOT_FOUND,
       );
     }
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return await this.userModel.findOne({ email });
   }
 }
